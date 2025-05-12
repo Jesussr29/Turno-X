@@ -134,3 +134,7 @@ body {
 .titulo{
   margin-top: 50px;
 }
+
+.cambio-modo button{
+  width: 900px;
+}
