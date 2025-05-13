@@ -199,7 +199,13 @@ function App() {
     <main className="board">
       <h1>Turno-X</h1>
       <h2>({gameMode === "vsPlayer" ? "2 Players" : "Contra IA"})</h2>
-      <button onClick={() => resetGame(false)}>Resetear Juego</button>
+      <button onClick={() => {
+          if (gameMode === "vsPlayer") {
+            resetGame(false); // Mostrar el modal para "vsAI"
+          } else {
+            resetGame(true); // Ocultar el modal para "vsPlayer"
+          }
+        }}>Resetear Juego</button>
       <button
         style={{ minWidth: "50px" }}
         className="cambio-modo"
@@ -243,7 +249,14 @@ function App() {
             {winner && winner !== false && <Square>{winner}</Square>}
           </header>
           <footer className="conjunto-btn">
-            <button onClick={() => resetGame(true)}>Volver a jugar</button>
+            <button 
+            onClick={() => {
+          if (gameMode === "vsPlayer") {
+            resetGame(false); // Mostrar el modal para "vsAI"
+          } else {
+            resetGame(true); // Ocultar el modal para "vsPlayer"
+          }
+        }}>Volver a jugar</button>
             <div>
               <button className="ojo" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 👁️
