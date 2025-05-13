@@ -206,5 +206,10 @@ body {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+.conjunto-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 

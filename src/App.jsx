@@ -242,7 +242,7 @@ function App() {
           <header className="win">
             {winner && winner !== false && <Square>{winner}</Square>}
           </header>
-          <footer>
+          <footer className="conjunto-btn">
             <button onClick={() => resetGame(true)}>Volver a jugar</button>
             <div>
               <button className="ojo" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
