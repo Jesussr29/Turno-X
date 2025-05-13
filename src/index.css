@@ -138,3 +138,70 @@ body {
 .cambio-modo button{
   width: 900px;
 }
+
+.modal-inicio {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-contenido {
+  background: black;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.modal-contenido button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+
+}
+
+.modal-contenido h2 {
+  margin-bottom: 20px;
+}
+
+/* Estilos para el label y select de dificultad */
+.modal-contenido label {
+  font-size: 16px;
+  color: white;
+}
+
+.modal-contenido select {
+  padding: 10px;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  background-color: #d3d4d5;
+  color: #212529;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-bottom: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Efecto al hacer hover sobre el select */
+.modal-contenido select:hover {
+  border-color: #007bff;
+  background-color: #e9ecef;
+}
+
+/* Estilo cuando el select está enfocado (clic) */
+.modal-contenido select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
