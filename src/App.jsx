@@ -50,7 +50,7 @@ function App() {
   };
 
   const resetGame = (showModal = false) => {
-    setMostrarModalInicio(showModal); // Controlar si mostrar el modal
+    setMostrarModalInicio(showModal); // Mostrar el modal solo si se pasa `true`
     const startingTurn = turnoInicial; // Usar el turno inicial asignado
     setBoard(Array(9).fill(null));
     setTurn(startingTurn);
@@ -67,14 +67,12 @@ function App() {
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
       setWinner(newWinner);
-      if (gameMode === "vsAI") {
-        setTimeout(() => setMostrarModalInicio(true), 1000); // Mostrar el modal después de 1 segundo
-      }
+      // Eliminar el modal automático
+      // Antes: setTimeout(() => setMostrarModalInicio(true), 1000);
     } else if (newBoard.every((square) => square !== null)) {
       setWinner(false);
-      if (gameMode === "vsAI") {
-        setTimeout(() => setMostrarModalInicio(true), 1000); // Mostrar el modal después de 1 segundo
-      }
+      // Eliminar el modal automático
+      // Antes: setTimeout(() => setMostrarModalInicio(true), 1000);
     } else {
       const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
       setTurn(newTurn);
@@ -98,32 +96,32 @@ function App() {
         .filter((i) => i !== null);
       return movimientosDisponibles[Math.floor(Math.random() * movimientosDisponibles.length)];
     };
-  
+
     if (dificultad === "facil") {
       // 60% óptimo, 40% aleatorio
       return Math.random() < 0.6 ? getOptimalMove(tablero) : getRandomMove(tablero);
     }
-  
+
     if (dificultad === "medio") {
       // 85% óptimo, 15% aleatorio
       return Math.random() < 0.85 ? getOptimalMove(tablero) : getRandomMove(tablero);
     }
-  
+
     if (dificultad === "dificil") {
       // 95% óptimo, 5% aleatorio
       return Math.random() < 0.95 ? getOptimalMove(tablero) : getRandomMove(tablero);
     }
-  
+
     // Por defecto, devuelve el movimiento óptimo
     return getOptimalMove(tablero);
   };
-  
+
   const getOptimalMove = (tablero) => {
     let mejorPuntaje = -Infinity;
     let movimiento = null;
     // Ajusta la profundidad según el nivel de dificultad
-    const profundidad = dificultad === "facil" ? 2 : (dificultad === "medio" ? 4 : 6);
-  
+    const profundidad = dificultad === "facil" ? 2 : dificultad === "medio" ? 4 : 6;
+
     for (let i = 0; i < tablero.length; i++) {
       if (tablero[i] === null) {
         tablero[i] = TURNS.O;
@@ -135,7 +133,7 @@ function App() {
         }
       }
     }
-  
+
     return movimiento;
   };
 
@@ -233,7 +231,7 @@ function App() {
             <h2>{winner === false ? "Empate" : `Ganó: `}</h2>
             <header className="win">{winner && <Square>{winner}</Square>}</header>
             <footer>
-              <button onClick={() => resetGame(false)}>Empezar de nuevo</button>
+              <button onClick={() => resetGame(true)}>Volver a jugar</button>
             </footer>
           </div>
         </section>
