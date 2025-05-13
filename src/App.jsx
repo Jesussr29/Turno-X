@@ -122,6 +122,11 @@ function App() {
       return Math.random() < 0.95 ? getOptimalMove(tablero) : getRandomMove(tablero);
     }
 
+    if (dificultad === "extremo") {
+      // 100% óptimo
+      return getOptimalMove(tablero);
+    }
+
     // Por defecto, devuelve el movimiento óptimo
     return getOptimalMove(tablero);
   };
@@ -198,7 +203,7 @@ function App() {
   return (
     <main className="board">
       <h1>Turno-X</h1>
-      <h2>({gameMode === "vsPlayer" ? "2 Players" : "Contra IA"})</h2>
+      <h2>({gameMode === "vsPlayer" ? "2 Players" : "Contra IA: " + dificultad})</h2>
       <button onClick={() => {
           if (gameMode === "vsPlayer") {
             resetGame(false); // Mostrar el modal para "vsAI"
@@ -276,6 +281,7 @@ function App() {
                 <option value="facil">Fácil</option>
                 <option value="medio">Medio</option>
                 <option value="dificil">Difícil</option>
+                <option value="extremo">Extremo</option>
               </select>
             </div>
             <h2>¿Quién empieza?</h2>
