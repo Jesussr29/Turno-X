@@ -39,6 +39,16 @@ function App() {
   const [turnoInicial, setTurnoInicial] = useState(TURNS.X);
   const [dificultad, setDificultad] = useState("dificil");
 
+    // Manejador para cuando el mouse entra en el h1.ojo
+    const handleMouseEnter = () => {
+      document.querySelector(".winner").style.opacity = 0; // Hacer la sección winner transparente
+    };
+  
+    // Manejador para cuando el mouse sale del h1.ojo
+    const handleMouseLeave = () => {
+      document.querySelector(".winner").style.opacity = 1; // Restaurar la opacidad normal
+    };
+
   const checkWinner = (boardToCheck) => {
     for (const combo of WINNERS_COMBOS) {
       const [a, b, c] = combo;
@@ -187,7 +197,7 @@ function App() {
 
   return (
     <main className="board">
-      <h1>Turno {turn}</h1>
+      <h1>Turno-X</h1>
       <h2>({gameMode === "vsPlayer" ? "2 Players" : "Contra IA"})</h2>
       <button onClick={() => resetGame(false)}>Resetear Juego</button>
       <button
@@ -226,15 +236,22 @@ function App() {
       </section>
 
       {winner !== null && (
-        <section className="winner">
-          <div className="text">
-            <h2>{winner === false ? "Empate" : `Ganó: `}</h2>
-            <header className="win">{winner && <Square>{winner}</Square>}</header>
-            <footer>
-              <button onClick={() => resetGame(true)}>Volver a jugar</button>
-            </footer>
-          </div>
-        </section>
+      <section className="winner">
+        <div className="text">
+          <h2>{winner === false ? "Empate" : `Ganó: ${winner}`}</h2>
+          <header className="win">
+            {winner && winner !== false && <Square>{winner}</Square>}
+          </header>
+          <footer>
+            <button onClick={() => resetGame(true)}>Volver a jugar</button>
+            <div>
+              <button className="ojo" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                👁️
+              </button>
+            </div>
+          </footer>
+        </div>
+      </section>
       )}
 
       {mostrarModalInicio && (

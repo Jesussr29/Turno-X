@@ -94,11 +94,11 @@ body {
   left: 0;
   display: grid;
   place-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .winner .text {
-  background: #111;
+  background: #111111;
   height: 300px;
   width: 320px;
   border: 2px solid #eee;
@@ -205,3 +205,6 @@ body {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+
+
+
