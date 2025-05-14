@@ -148,7 +148,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (turn === TURNS.O && gameMode === "vsAI" && !winner) {
+    if (turn === TURNS.X && gameMode === "vsAI" && !winner) {
       const timeout = setTimeout(() => {
         const bestMove = getBestMove(board);
         updateBoard(bestMove);
@@ -351,7 +351,7 @@ function App() {
         </section>
       )}
 
-      {winner === "O" && dificultad == "extremo" && mostrarModalRegistro == true &&(
+      {winner === "X" && dificultad == "extremo" && mostrarModalRegistro == true &&(
         <section className="modal-inicio">
           <div className="modal-contenido">
             <h2>AÑADE TU NOMBRE AL MURAL DE LA FAMA</h2>
