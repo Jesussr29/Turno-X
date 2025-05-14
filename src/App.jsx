@@ -75,10 +75,6 @@ function App() {
     }
   };
 
-  // Cargar usuarios al entrar y cuando se pida recargar
-  useEffect(() => {
-    obtenerUsuarios();
-  }, []);
 
   const obtenerUsuarios = () => {
     fetch("https://ruizgijon.ddns.net/rinconj/turno_x/Backend/Controller/recogerUsuarios.php")
@@ -127,7 +123,7 @@ function App() {
     const newWinner = checkWinner(newBoard);
 
       // Si gana X y la dificultad es "extremo"
-    if (newWinner === TURNS.O && dificultad === "extremo") {
+    if (newWinner === TURNS.X && dificultad === "extremo") {
       console.log("¡Increíble! X ha ganado en modo extremo.");
       setMostrarModalRegistro(true);
       // Aquí puedes añadir cualquier acción adicional, como mostrar un mensaje especial
@@ -148,7 +144,8 @@ function App() {
   };
 
   useEffect(() => {
-    if (turn === TURNS.X && gameMode === "vsAI" && !winner) {
+    obtenerUsuarios();
+    if (turn === TURNS.O && gameMode === "vsAI" && !winner) {
       const timeout = setTimeout(() => {
         const bestMove = getBestMove(board);
         updateBoard(bestMove);
