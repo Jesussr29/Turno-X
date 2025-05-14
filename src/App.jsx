@@ -380,7 +380,7 @@ function App() {
       <br></br>
       <ul>
       {datos.length === 0 ? (
-        <p style={{textAlign: 'center'}}>Todabia nadie lo ha conseguido, prueba a intentarlo.</p>
+        <p style={{textAlign: 'center'}}>Todavia nadie lo ha conseguido, prueba a intentarlo.</p>
       ) : (
         datos.map((item, index) => (
           <p key={index}>
@@ -396,11 +396,11 @@ function App() {
         <div className="modal-fondo" onClick={() => setMostrarModal(false)}>
           <div className="modal-contenido" onClick={(e) => e.stopPropagation()}>
             <h2>¿Que es el mural de la fama?</h2>
-            <p>El mural de la fama es un reconocimiento a los usuarios que logran ganar en el nivel de dificultad de extremo, una vez ganas podras poner tu nombre y los demas usuarios podran ver que lo conseguiste.</p>
-            <button className="cerrar-info" onClick={() => setMostrarModal(false)}>Cerrar</button>
+            <p>El <span style={{color: '#ffcc00'}}>mural de la fama</span> es un reconocimiento a los usuarios que logran ganar en el <span style={{color: '#ffcc00'}}>nivel de dificultad extremo</span>, una vez ganas podras poner tu nombre y los demas usuarios podran ver que lo conseguiste.</p>
+            <a className="cerrar-info" onClick={() => setMostrarModal(false)}>Cerrar</a>
           </div>
         </div>
-      )}
+    )}
 
     <br></br>
     </>

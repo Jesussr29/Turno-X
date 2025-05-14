@@ -304,11 +304,12 @@ input[type="text"]:focus {
 
 .modal-contenido {
   background: rgb(0, 0, 0);
-  padding: 20px;
+  padding: 30px 25px;
   border-radius: 10px;
   max-width: 400px;
-  text-align: center;
   animation: fadeIn 0.3s ease;
+  margin: 20px;
+  text-align: left;
 }
 
 @keyframes fadeIn {
@@ -318,8 +319,14 @@ input[type="text"]:focus {
 
 .cerrar-info{
   background-color: red;
+  color: white;
+  padding: 8px 20px;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.3s;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .cerrar-info:hover {
@@ -328,7 +335,8 @@ input[type="text"]:focus {
 }
 
 .modal-contenido p{
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  font-style: italic;
 }
 
 
