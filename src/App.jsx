@@ -36,8 +36,57 @@ function App() {
   const [winner, setWinner] = useState(null);
   const [gameMode, setGameMode] = useState("vsPlayer");
   const [mostrarModalInicio, setMostrarModalInicio] = useState(false);
+  const [mostrarModalRegistro, setMostrarModalRegistro] = useState(false);
   const [turnoInicial, setTurnoInicial] = useState(TURNS.X);
   const [dificultad, setDificultad] = useState("dificil");
+
+  const [datos, setDatos] = useState([]);
+
+  const [nombre, setNombre] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const [mostrarModal, setMostrarModal] = useState(false);
+
+  const manejarEnvio = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const respuesta = await fetch("https://ruizgijon.ddns.net/rinconj/turno_x/Backend/Controller/añadirUsuario.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nombre })
+      });
+  
+      const datos = await respuesta.json();
+  
+      if (datos.mensaje) {
+        setMensaje(datos.mensaje);
+        setNombre(""); // Limpiar campo
+        setMostrarModalRegistro(false); // Cerrar el modal después de añadir el usuario
+        obtenerUsuarios(); // Recargar la lista de usuarios
+      } else {
+        setMensaje(datos.error || "Error al añadir usuario");
+      }
+    } catch (error) {
+      setMensaje("Error de conexión con el servidor");
+      console.error(error);
+    }
+  };
+
+  // Cargar usuarios al entrar y cuando se pida recargar
+  useEffect(() => {
+    obtenerUsuarios();
+  }, []);
+
+  const obtenerUsuarios = () => {
+    fetch("https://ruizgijon.ddns.net/rinconj/turno_x/Backend/Controller/recogerUsuarios.php")
+      .then((res) => res.json())
+      .then((data) => setDatos(data))
+      .catch((error) => console.error("Error:", error));
+  };
+  
 
     // Manejador para cuando el mouse entra en el h1.ojo
     const handleMouseEnter = () => {
@@ -60,6 +109,7 @@ function App() {
   };
 
   const resetGame = (showModal = false) => {
+
     setMostrarModalInicio(showModal); // Mostrar el modal solo si se pasa `true`
     const startingTurn = turnoInicial; // Usar el turno inicial asignado
     setBoard(Array(9).fill(null));
@@ -75,6 +125,14 @@ function App() {
     setBoard(newBoard);
 
     const newWinner = checkWinner(newBoard);
+
+      // Si gana X y la dificultad es "extremo"
+    if (newWinner === TURNS.O && dificultad === "extremo") {
+      console.log("¡Increíble! X ha ganado en modo extremo.");
+      setMostrarModalRegistro(true);
+      // Aquí puedes añadir cualquier acción adicional, como mostrar un mensaje especial
+    }
+
     if (newWinner) {
       setWinner(newWinner);
       // Eliminar el modal automático
@@ -123,8 +181,8 @@ function App() {
     }
 
     if (dificultad === "extremo") {
-      // 100% óptimo
-      return getOptimalMove(tablero);
+      // 99% óptimo
+      return Math.random() < 0.99 ? getOptimalMove(tablero) : getRandomMove(tablero);
     }
 
     // Por defecto, devuelve el movimiento óptimo
@@ -184,6 +242,7 @@ function App() {
   };
 
   const iniciarVsIA = (turnoElegido) => {
+    setMostrarModalRegistro(false);
     setTurnoInicial(turnoElegido);
     setTurn(turnoElegido);
     setGameMode("vsAI");
@@ -201,6 +260,7 @@ function App() {
   };
 
   return (
+    <>
     <main className="board">
       <h1>Turno-X</h1>
       <h2>({gameMode === "vsPlayer" ? "2 Players" : "Contra IA: " + dificultad})</h2>
@@ -290,8 +350,65 @@ function App() {
           </div>
         </section>
       )}
+
+      {winner === "O" && dificultad == "extremo" && mostrarModalRegistro == true &&(
+        <section className="modal-inicio">
+          <div className="modal-contenido">
+            <h2>AÑADE TU NOMBRE AL MURAL DE LA FAMA</h2>
+            <form onSubmit={manejarEnvio}>
+              <input
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Nombre del usuario"
+                required
+              />
+              <button type="submit">Añadir</button>
+            </form>
+            {mensaje && <p>{mensaje}</p>}
+          </div>
+        </section>
+      )}
+    
     </main>
+
+    <section className="portal-fama">
+      <div className="titulo-fama">
+      <h2>MURAL DE LA FAMA</h2>
+        <i
+          className="fas fa-question-circle icono-info"
+          onClick={() => setMostrarModal(true)}
+        ></i>
+      </div>
+      <br></br>
+      <ul>
+      {datos.length === 0 ? (
+        <p style={{textAlign: 'center'}}>Todabia nadie lo ha conseguido, prueba a intentarlo.</p>
+      ) : (
+        datos.map((item, index) => (
+          <p key={index}>
+            - {item.nombre} : {item.fecha}
+          </p>
+        ))
+      )}
+        
+      </ul>
+    </section>
+
+    {mostrarModal && (
+        <div className="modal-fondo" onClick={() => setMostrarModal(false)}>
+          <div className="modal-contenido" onClick={(e) => e.stopPropagation()}>
+            <h2>¿Que es el mural de la fama?</h2>
+            <p>El mural de la fama es un reconocimiento a los usuarios que logran ganar en el nivel de dificultad de extremo, una vez ganas podras poner tu nombre y los demas usuarios podran ver que lo conseguiste.</p>
+            <button className="cerrar-info" onClick={() => setMostrarModal(false)}>Cerrar</button>
+          </div>
+        </div>
+      )}
+
+    <br></br>
+    </>
   );
+  
 }
 
 export default App;
