@@ -123,7 +123,7 @@ function App() {
     const newWinner = checkWinner(newBoard);
 
       // Si gana X y la dificultad es "extremo"
-    if (newWinner === TURNS.X && dificultad === "extremo") {
+    if (newWinner === TURNS.O && dificultad === "extremo") {
       console.log("¡Increíble! X ha ganado en modo extremo.");
       setMostrarModalRegistro(true);
       // Aquí puedes añadir cualquier acción adicional, como mostrar un mensaje especial
@@ -179,7 +179,7 @@ function App() {
 
     if (dificultad === "extremo") {
       // 99% óptimo
-      return Math.random() < 0.99 ? getOptimalMove(tablero) : getRandomMove(tablero);
+      return Math.random() < 0.98 ? getOptimalMove(tablero) : getRandomMove(tablero);
     }
 
     // Por defecto, devuelve el movimiento óptimo
@@ -348,7 +348,7 @@ function App() {
         </section>
       )}
 
-      {winner === "X" && dificultad == "extremo" && mostrarModalRegistro == true &&(
+      {winner === "O" && dificultad == "extremo" && mostrarModalRegistro == true &&(
         <section className="modal-inicio">
           <div className="modal-contenido">
             <h2>AÑADE TU NOMBRE AL MURAL DE LA FAMA</h2>
@@ -357,7 +357,8 @@ function App() {
                 type="text"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                placeholder="Nombre del usuario"
+                placeholder="Pon tu nombre"
+                maxLength={30}
                 required
               />
               <button type="submit">Añadir</button>
@@ -369,7 +370,7 @@ function App() {
     
     </main>
 
-    <section className="portal-fama">
+    <section className={`portal-fama ${dificultad === "extremo" && gameMode == 'vsAI' ? "neon" : ""}`}>
       <div className="titulo-fama">
       <h2>MURAL DE LA FAMA</h2>
         <i

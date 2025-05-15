@@ -260,10 +260,11 @@ input[type="text"] {
   max-width: 280px;
   background-color: #f9f9f9;
   color: #333;
+  margin-bottom: 10px;
 }
 
 input[type="text"]:focus {
-  border-color: rgb(255, 204, 0);
+  border-color: #0ff;
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
   background-color: #fff;
 }
@@ -346,7 +347,7 @@ input[type="text"]:focus {
   box-shadow: 0 0 20px #0ff inset;
   border: 2px solid #0ff;
   transition: all 0.5s ease-in-out;
-  padding: 40px;
+  padding: 20px;
   position: relative;
   overflow: hidden;
 }
@@ -396,12 +397,11 @@ input[type="text"]:focus {
   top: 0;
   left: 0;
   position: absolute;
-  height: 645px;
-  width: 380px;
-  margin-left: 10px;
-  margin-top: 10px;
-  background-color: #212529;
-  padding: -10px;
+  height: 615px;
+  width: 345px;
+  margin-left: 7px;
+  margin-top: 5px;
+  background-color: #242424;
   z-index: -1;
 }
 
@@ -423,5 +423,16 @@ input[type="text"]:focus {
   gap: 20px;
 }
 
+.modal-fondo.nenon {
+  background-color: red;
+}
 
+.portal-fama.neon {
+  background-color: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 20px #0ff;
+}
 
+.portal-fama.neon h2 {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff;
+}
