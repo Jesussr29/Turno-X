@@ -339,4 +339,89 @@ input[type="text"]:focus {
   font-style: italic;
 }
 
+/* -------------------MODO NEON--------------------- */
+
+/* Estilo para modo neón */
+.board.neon {
+  box-shadow: 0 0 20px #0ff inset;
+  border: 2px solid #0ff;
+  transition: all 0.5s ease-in-out;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.board.neon h1, .board.neon h2 {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff;
+}
+
+.board.neon button {
+  color: white;
+  border: 2px solid #0ff;
+  transition: all 0.3s ease;
+}
+
+.board.neon button:hover {
+  background: #0ff;
+  color: #222;
+  box-shadow: 0 0 10px #0ff, 0 0 10px #0ff, 0 0 10px #0ff;
+}
+
+.board.neon::before {
+  content: '';
+  position: absolute;
+  margin-top: -200px;
+  left: 0;
+  height: 990px;
+  width: 400px;
+  z-index: -1;
+  background-image: conic-gradient(#0ff 20deg, transparent 40deg);
+
+  animation: rodar 2s linear infinite;
+}
+
+@keyframes rodar {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+  
+}
+
+.board.neon::after {
+  content: '';
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 645px;
+  width: 380px;
+  margin-left: 10px;
+  margin-top: 10px;
+  background-color: #212529;
+  padding: -10px;
+  z-index: -1;
+}
+
+.board.neon .square {
+  color: #0ff;
+  border: 1px solid #0ff;
+  text-shadow: 0 0 5px #0ff;
+  background-color: rgba(0, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.board.neon .square.is-selected {
+  background-color: rgba(0, 255, 255, 0.2);
+}
+
+.board.neon .turn {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff;
+  gap: 20px;
+}
+
+
 

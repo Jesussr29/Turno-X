@@ -258,7 +258,7 @@ function App() {
 
   return (
     <>
-    <main className="board">
+    <main className={`board ${dificultad === "extremo" && gameMode == 'vsAI' ? "neon" : ""}`}>
       <h1>Turno-X</h1>
       <h2>({gameMode === "vsPlayer" ? "2 Players" : "Contra IA: " + dificultad})</h2>
       <button onClick={() => {
