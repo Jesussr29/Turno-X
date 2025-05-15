@@ -123,7 +123,7 @@ function App() {
     const newWinner = checkWinner(newBoard);
 
       // Si gana X y la dificultad es "extremo"
-    if (newWinner === TURNS.O && dificultad === "extremo") {
+    if (newWinner === TURNS.X && dificultad === "extremo") {
       console.log("¡Increíble! X ha ganado en modo extremo.");
       setMostrarModalRegistro(true);
       // Aquí puedes añadir cualquier acción adicional, como mostrar un mensaje especial
@@ -348,7 +348,7 @@ function App() {
         </section>
       )}
 
-      {winner === "O" && dificultad == "extremo" && mostrarModalRegistro == true &&(
+      {winner === "X" && dificultad == "extremo" && mostrarModalRegistro == true &&(
         <section className="modal-inicio">
           <div className="modal-contenido">
             <h2>AÑADE TU NOMBRE AL MURAL DE LA FAMA</h2>
